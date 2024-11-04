@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 
 
 
-app.use('/', require('./route'));
+app.use('/', require('./routes'));
 
 
 
