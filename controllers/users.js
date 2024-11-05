@@ -7,6 +7,7 @@ const getAll = async (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(users);
 });
+};
 
 const getSingle = async (req, res) => {
     const userId = new ObjectId(req.params.id);
