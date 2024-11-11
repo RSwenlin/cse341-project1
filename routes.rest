@@ -8,10 +8,23 @@ GET http://localhost:3000/users/66f6126bc11b9b71a26653ec
 ### Create contact
 POST http://localhost:3000/users HTTP/1.1
 Content-Type: application/json
-
-
-
+{
+    "email": "test@mac.com",
+    "username": "Swenlin",
+    "name": "Swenlin",
+    "ipaddress": "192.168.1.1"
+    }
 
 ###Put contact
 PUT http://localhost:3000/users/66f6126bc11b9b71a26653ec
 Content-Type: application/json
+
+{
+    "email": "test@mac.com",
+    "username": "Swenlin",
+    "name": "Swenlin",
+    "ipaddress": "192.168.1.1"
+    }
+
+###DELETE contact
+DELETE http://localhost:3000/users/66f6126bc11b9b71a26653ec
