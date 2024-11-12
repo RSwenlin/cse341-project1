@@ -8,6 +8,7 @@
   "host": "cse341-project1-4rlf.onrender.com",
   "basePath": "/",
   "schemes": [
+    "http",
     "https"
   ],
   "paths": {
