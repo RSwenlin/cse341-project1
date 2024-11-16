@@ -1,9 +1,7 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const isValidObjectId = (id) => {
-    return ObjectId.isValid(id) && String(new ObjectId(id)) === id;
-};
+
 
 const getAll = async (req, res) => {
     //#swagger.tags=['Users']
@@ -15,20 +13,31 @@ const getAll = async (req, res) => {
 };
 
 const getSingle = async (req, res) => {
-    const userId = new ObjectId(req.params.id);
+    const userId = (req.params.id);
 
-    if (!isValidObjectId(userId)) {
+    if (!ObjectId.isValid(userId)) {
         return res.status(400).json({ error: 'Invalid user ID format' });
     }
-    const result = await mongodb.getDatabase().db().collection('users').find({ _id: new ObjectId(userId) });
-    result.toArray().then((users) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(users[0] || { error: 'User not Found'});
-    }).catch((err) => {
-        res.status(500).json({ error: 'An error occurred', details: err });
-    });
 
+
+    try {
+        const result = await mongodb
+            .getDatabase()
+            .db()
+            .collection('users')
+            .findOne({ _id: new ObjectId(userId) });
+
+        if (result) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: 'An error occurred while retrieving the user' });
+    }
 };
+
+    
 
 const createUser = async (req, res) => {
     const user = {
